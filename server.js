@@ -8,7 +8,7 @@ const path = require('path');
 
 const server = http.createServer(app);
 // This is the instance of soket io in server side
-const io = new Server(server);
+const io = new Server(server, { addTrailingSlash: false });
 
 // for deployment purposes
 app.use(express.static('build'));
