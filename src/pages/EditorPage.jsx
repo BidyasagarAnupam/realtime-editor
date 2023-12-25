@@ -36,15 +36,23 @@ const EditorPage = () => {
       socketRef.current = await initSocket();
 
       // TO hanndle errors during connection of socket
-      socketRef.current.on('connect_error', (err) => handleErrors(err));
-      socketRef.current.on('connect_failed', (err) => handleErrors(err));
-
-      // here we create this function to handle the errors, basically we generate some error toast ans redirect to Home page
-      function handleErrors(e) {
-        console.log('socket error', e);
+      socketRef.current.on('connect_error', (err) => {
+        console.log('Connect Error ->  socket error due to', err.message);
         toast.error('Socket connection failed, try again later.');
         reactNavigator('/');
-      }
+      });
+      socketRef.current.on('connect_failed', (err) => {
+        console.log('sSoket Connect Failed -> ocket error', err.message);
+        toast.error('Socket connection failed, try again later.');
+        reactNavigator('/');
+      });
+
+      // // here we create this function to handle the errors, basically we generate some error toast ans redirect to Home page
+      // function handleErrors(e) {
+      //   console.log('socket error', e);
+      //   toast.error('Socket connection failed, try again later.');
+      //   reactNavigator('/');
+      // }
 
       // when soket is connected this function will triggered
       // then we have to listen in Server side and we can access the roomId and userName
