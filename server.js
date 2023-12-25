@@ -8,7 +8,11 @@ const path = require('path');
 
 const server = http.createServer(app);
 // This is the instance of soket io in server side
-const io = new Server(server, { addTrailingSlash: false });
+const io = new Server(server, {
+    cors: {
+        origin: '*',
+    }
+});
 
 // for deployment purposes
 app.use(express.static('build'));
